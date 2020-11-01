@@ -2,16 +2,16 @@ function intensity_feature = intensityFeatures(I)
 
 % Test
 % -------
-A = imread('flower.png');
-A = rgb2gray(A);
-fh = figure();
-imshow(A);
+% A = imread('flower.png');
+% A = rgb2gray(A);
+% fh = figure();
+% imshow(A);
 % ------
 
 % Change to [L,N] = I where I is the superpixels
-[L,N] = superpixels(A,40);
+[L,N] = superpixels(I,40);
 % (1) Get the average intensity values of all pixels within superpixel S
-average_intensity1 = regionprops(L,A,'MeanIntensity');
+average_intensity1 = regionprops(L,I,'MeanIntensity');
 
 % Change struct into an array of double
 average_intensity1 = struct2cell(average_intensity1);

@@ -1,11 +1,11 @@
-function std_deviation_feature = standardDeviationFeatures(I)
+function std_deviation_feature = standard_deviation_features(I)
 
 % Test
 % -------
-I = imread('flower.png');
-I = rgb2gray(I);
-fh = figure();
-imshow(I);
+% I = imread('flower.png');
+% I = rgb2gray(I);
+% fh = figure();
+% imshow(I);
 % ------
 
 [L,N] = superpixels(I,40);

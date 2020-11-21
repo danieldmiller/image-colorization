@@ -12,9 +12,3 @@ targetI = rgb2gray(referenceI);
 
 indexes = gabor_matcher(referenceI, targetI, gaborMagRef, gaborMagTarget);
 color_assignment = colorAssignment(referenceI, targetI, indexes);
-% Assign colors by searching for similar gabor features for each superpixel
-% for i = 1 : length(gaborArrayTarget)
-%     disp(gaborArrayTarget(i));
-% end
-
-

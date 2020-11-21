@@ -2,13 +2,13 @@ function std_deviation_feature = standard_deviation_features(I)
 
 % Test
 % -------
-% I = imread('flower.png');
-% I = rgb2gray(I);
+I = imread('dest1.jpg');
+I = rgb2gray(I);
 % fh = figure();
 % imshow(I);
 % ------
 
-[L,N] = superpixels(I,40);
+[L,N] = superpixels(I,500);
 
 % (1) Get the average standard deviation value of each pixel using 5x5
 % window
@@ -27,10 +27,14 @@ standard_deviation2 = zeros(1,arraySize);
 for i = 1:arraySize
     if(i==1)
         standard_deviation2(1) = standard_deviation1(i+1);
+    elseif(i==2)
+        standard_deviation2(2) = 1/2 * (standard_deviation1(i+1) + standard_deviation1(i-1));
     elseif(i==arraySize)
         standard_deviation2(arraySize) = standard_deviation1(i-1);
+    elseif(i==arraySize - 1)
+        standard_deviation2(arraySize) = 1/2 * (standard_deviation1(i-1) + standard_deviation1(i-2));
     else
-        standard_deviation2(i) = 1/2 * (standard_deviation1(i-1) + standard_deviation1(i+1));
+        standard_deviation2(i) = 1/4 * (standard_deviation1(i-2) + standard_deviation1(i-1) + standard_deviation1(i+1) + standard_deviation1(i+2));
     end
 end
 
@@ -42,3 +46,25 @@ for i =1:arraySize
     % Second row refers to (2)
     std_deviation_feature(2,i) = standard_deviation2(i);
 end
+
+%% Row 1 Overlay
+outputImage = zeros(size(I),'like',I);
+idx = label2idx(L);
+for labelVal = 1:N
+    std_dev_idx = idx{labelVal};
+    outputImage(std_dev_idx) = standard_deviation1(labelVal);
+end    
+
+figure
+imshow(outputImage,'InitialMagnification',67)
+
+%% Row 2 Overlay
+outputImage = zeros(size(I),'like',I);
+idx = label2idx(L);
+for labelVal = 1:N
+    std_dev_idx = idx{labelVal};
+    outputImage(std_dev_idx) = standard_deviation2(labelVal);
+end    
+
+figure
+imshow(outputImage,'InitialMagnification',67)    

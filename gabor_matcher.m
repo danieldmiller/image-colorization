@@ -1,6 +1,6 @@
 function returnIndex = gabor_matcher(refI, targetI, refMag, targetMag)
-    [L,N] = superpixels(targetI,500);
-    [L1,N1] = superpixels(refI,500);
+    [L,N] = superpixels(targetI,1000);
+    [L1,N1] = superpixels(refI,1000);
 
     returnIndex = zeros(N, 1);
     

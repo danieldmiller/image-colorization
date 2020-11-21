@@ -8,7 +8,7 @@ I = rgb2gray(I);
 % imshow(I);
 % ------
 
-[L,N] = superpixels(I,500);
+[L,N] = superpixels(I,1000);
 
 % (1) Get the average standard deviation value of each pixel using 5x5
 % window

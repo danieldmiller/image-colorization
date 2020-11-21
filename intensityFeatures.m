@@ -9,7 +9,7 @@ function intensity_feature = intensityFeatures(I)
 % ------
 
 % Change to [L,N] = I where I is the superpixels
-[L,N] = superpixels(I,500);
+[L,N] = superpixels(I,1000);
 % (1) Get the average intensity values of all pixels within superpixel S
 average_intensity1 = regionprops(L,I,'MeanIntensity');
 

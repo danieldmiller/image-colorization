@@ -3,8 +3,9 @@ function [nI]=preTraitement(gI,cI)
 
 
 I_NDG=gI;
+I_NDG = im2double(I_NDG);
 I_Marked=cI; % Normalization image marquée
-I_Traces=(sum(abs(I_NDG-I_Marked),3)>0.2);  % S'il y a une différence minime de 
+I_Traces=(sum(abs(I_NDG-I_Marked),3)>0.01);  % S'il y a une différence minime de 
 % la valeur d'un pixel c'est que celui ci a été marqué;
 % On récupère ainsi tous les pixels marqués, en blanc sur fond noir.
 I_Traces=double(I_Traces); % On passe de logical-> double

@@ -34,12 +34,17 @@ function run_extractors()
 % figure, imshow(colorized);
 
     
-    referenceI = imread('flower_copy.png');
+    referenceI = imread('flower.png');
+    [L,N] = superpixels(referenceI,300);
+    figure
+    BW = boundarymask(L);
+    imshow(imoverlay(referenceI,BW,'cyan'),'InitialMagnification',67)
+    
     grayReferenceI = rgb2gray(referenceI);
     targetI = rgb2gray(imread("flower.png"));
 
-    [targetL,targetN] = superpixels(targetI,1000);
-    [refL,refN] = superpixels(referenceI,1000);
+    [targetL,targetN] = superpixels(targetI,700);
+    [refL,refN] = superpixels(referenceI,700);
     
     [gaborArrayRef,gaborMagRef] = gabor_features(grayReferenceI);
     [gaborArrayTarget,gaborMagTarget] = gabor_features(targetI);

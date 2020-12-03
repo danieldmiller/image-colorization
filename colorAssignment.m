@@ -19,7 +19,7 @@ function color_assignment = colorAssignment(referenceI, targetI, indexes, target
         centerOfSuperPixel = median(valueIdx);
 
         midpoint = round(length(valueIdx)/2);
-        centerValues = valueIdx(midpoint-14:midpoint+15);
+        centerValues = valueIdx(midpoint-15:midpoint+16);
 
         
         if labelVal > size(indexes, 1)

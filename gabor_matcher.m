@@ -43,7 +43,7 @@ function returnIndex = gabor_matcher(refI, targetI, refMag, targetMag, targetL, 
         idx1 = label2idx(refL);
         minVal = mean(refMag(1));
         index = 1;
-        for labelVal2 = 2:refN
+        for labelVal2 = 2:size(idx,2)
             valueIdx1 = idx{labelVal2};
             gaborVal1 = mean(refMag(valueIdx1));
             if abs(gaborVal1 - gaborVal) < abs(minVal - gaborVal)

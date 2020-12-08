@@ -1,0 +1,84 @@
+Write up:
+
+Motivation:
+We were motivated to figure out a way to colour an image due to WW2 images. When thinking of WW2, we always think of
+it in terms of gray-scale photos and video's. We wanted to bring some colour perspective to WW2 photos
+
+Colouring Methods:
+Automatic: use some sort of pre-trained colouring program to colour an Image. The State of the art method requires Deep Learning and CNN's.
+Weakness: Need a lot of images to train: less memory efficient. Also, as we add more layers in the Deep Learning algorithm, speed declines. On the other hand
+          Less layers mean less accuracy.
+
+Manual: Requires users to manually map color per pixel/area. State of the art techniques require Photoshop/GIMP/ any image maniulation software.
+Weakness: Tedious and Tiresome. Output is dependent on the person mapping the colour.
+
+Problem We are trying to solve:
+- We are trying to solve the computational problem of Deep Learning algorithms. These algorithms require a lot of computation power, which might bottle neck a user's machine.
+- My first Neural Network trying to detect patterns in images was only 2 layers deep, but took a lot of time to run.
+
+Approach:
+We used a computationally easy approach to colour an image. This approach uses a reference image similar to the
+target image and maps colour based on similar features
+
+Based On:
+Paper: Image Colorization Using Similar Images
+Citation: R. K. Gupta, A. Y. Chia, D. Rajan, E. S. Ng, and H. Zhiyong. Image Colorization Using Similar Images. https://people.cs.clemson.edu/~jzwang/ustc13/mm2012/p369-gupta.pdf 
+
+
+Method:
+Let R be the RGB reference image and T be the gray-scale target.
+- Extract n super pixels per image
+- For each super pixel, extract Gabor features and SURF.
+- Cascase Feature match to get the right reference pixel per target super pixel
+- Use Image Space Voting to filter out umatched areas.
+
+
+Results:
+We were able to run the Cascade step for Gabor Features, and got results. The result wasn't accurate when using different images to colour
+It seems that SURF features and Intensity freatures are required to get better estimates of reference pixels per target pixels.
+
+Super Pixels: Areas of an image simialr in characteristics. <show photo from our sample>
+
+Gabor Features: These features are used for texture analysis. We extracted Gabor Features at 8 different orientations and 5 scales, giving us 40 Gabor Features per super pixel. <photo from our sample>
+
+SURF: Speed Up Robust Features behave just like SIFT features, but they are faster. <photo from our sample>.
+
+Cascade Feature Matching:
+- Let C be the set of all reference super pixels
+For every super pixel t in T (the gray scale image):
+- Compute the Euclidean Distance of mean Gabor Features between t and c in C, for all elements of C.
+- If this distace is less than a certain error, add it to a list of reference super pixels close to the target super pixel in texture.
+
+In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
+Finally use function f to narrow down on a single super pixel:
+function: <add function here>
+
+Pros/Cons:
+- A lot less data intensive than Neural Networks (i.e. doesn’t need the use of implemented libraries with pre-trained data sets).
+- Conceptually a lot easier to understand.
+- Can be done locally without needing big data sets to train.
+- Takes < 3 mins to run so far, with SURF mapping could take up to 4 mins.
+
+COns:
+- Harder to implement than a Neural Network
+- At technical level, a lot more math than a Neural Network
+- Color is dependent on the reference image, so if the wrong image is used, colour mapping will be wrong.
+
+
+
+Findings/Discussion:
+- While we were unable to implemet the research paper accuratly ,we found that Colour mapping is possible with this method, just not very accurate. If we can add more layers of features to narrow down
+  on a reference super pixel, we would be able to develop a better program.
+
+Challenges:
+We Initially thought this was gonna be easy:
+- We overcame a challenge we were facing with mapping Gabor features per super-pixel.
+- Mapping colour from image to another is tricky, we cannot just transfer the rgb channels. We tried this and it basically just copied a part of image and put it in another place.
+  Matlab superpixel extraction was unconventional.
+
+
+Future Work:
+- Add more layers of features and perform the Cascade step.
+
+
+

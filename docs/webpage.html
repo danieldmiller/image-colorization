@@ -19,6 +19,9 @@
    
     <h2>Standalone Executable</h2>
     <a>TODO</a>
+	
+	<h2> Presentation</h2>
+	<a>TODO</a>
 
     <h2>Project Description</h2>
     <p>Image colourization is about colouring black and while (Grayscale) images. Image Colourization can be characterized into two main categories: Interactive and Automatic colourization. In an interactive method, a user generally maps colour to individual pixel. This method is extremely intensive and prone to human error and the end result is extremely dependent on the user. An automatic method takes in one or several images as inputs and transfer colour from reference to target image. A key challenge in automatic methods is parsing through large amounts of inputs and parameters.</p>
@@ -60,15 +63,44 @@
 	<p>     - Use Image Space Voting to filter out umatched areas.</p>
 	
 	<h2> Results </h2>
+	<h3> Original Images to Colour </h3>
+	<figure>
+        <img src="./orig_fort.jpg" alt="super pixel image">
+        <figcaption>Original Fort Reference Image</figcaption>
+    </figure>
+	
+	<figure>
+        <img src="./orig_flower.png" alt="super pixel image">
+        <figcaption>Original Fort Reference Image</figcaption>
+    </figure>
+	
 	<p> We were able to successfully map colour using Cascade step for Gabor Features. The result wasn't accurate when using different images to colour
          It seems that SURF features and Intensity freatures are required to get better estimates of reference pixels per target pixels. This is because using one feature is still underconstraining the problem.</p>
     <p> We are trying to crunch time and get a map ready with SURF</p>
 	
 	<h3> Super Pixel Extraction </h3>
 	<p> Areas of an image simialr in characteristics. They help with speeding up computation. We found that the more the super pixels, the more accurate colour mapping was. </p>
+	<figure>
+        <img src="./sp1.jpg" alt="super pixel image">
+        <figcaption>Super Pixels of an flower</figcaption>
+    </figure>
+	
+	<figure>
+        <img src="./sp2.png" alt="super pixel image">
+        <figcaption>Super Pixels of an fort</figcaption>
+    </figure>
 	
 	<h3> Gabor Features </h3>
 	<p> Help in texture analysis of an image. </p>
+	<figure>
+        <img src="./gabor_fort.jpg" alt="gabor features for fort">
+        <figcaption>Some of the Gabor features for Fort</figcaption>
+    </figure>
+	
+	<figure>
+        <img src="./gabor_flower.jpg" alt="gabor features for flower">
+        <figcaption>Some of the Gabor features for Flower</figcaption>
+    </figure>
 	
 	<h3> SURF </h3>
 	<p> Speed Up Robust Features behave just like SIFT features, but they are faster. They are also highly discriminative </p>
@@ -82,6 +114,11 @@
              Finally use function f to narrow down on a single super pixel: </p>
     <p> function f: </p>
 	
+	<h2> Final Coloration </h2>
+	<figure>
+        <img src="./result_flower.jpg" alt="result for flower">
+        <figcaption>Final Coloration of flower using Gabor Features</figcaption>
+    </figure>
 	<h2> Discussion </h2>
 	<p> While we were unable to implemet the research paper accuratly ,we found that Colour mapping is possible with this method, just not very accurate. If we can add more layers of features to narrow down
         on a reference super pixel, we would be able to develop a better program. Again, Image Colourization is underconstrained. Gabor and SURF features might still do not properly constraint this problem. </p>

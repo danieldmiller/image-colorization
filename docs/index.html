@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Colorization</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+  </head>
+  <body>
+    <h1>Image Colorization - CS 639</h1>
+
+    <h2>Authors</h2>
+    <ul>
+      <li>Anjaney Mishra</li>
+      <li>Riza Hassan</li>
+      <li>Daniel Miller</li>
+    </ul>
+
+    <h2>Project Source Code</h2>
+    <a href="https://github.com/danieldmiller/image-colorization">https://github.com/danieldmiller/image-colorization</a>
+   
+    <h2>Standalone Executable</h2>
+    <a>TODO</a>
+	
+	<h2> Presentation</h2>
+	<a>TODO</a>
+
+    <h2>Project Description</h2>
+    <p>Image colourization is about colouring black and while (Grayscale) images. Image Colourization can be characterized into two main categories: Interactive and Automatic colourization. In an interactive method, a user generally maps colour to individual pixel. This method is extremely intensive and prone to human error and the end result is extremely dependent on the user. An automatic method takes in one or several images as inputs and transfer colour from reference to target image. A key challenge in automatic methods is parsing through large amounts of inputs and parameters.</p>
+    <p>In this project, we will be implementing image colorization using feature transfer from similar images. This method intends to transfer image colours from one image to another. The constraint of this method is that both images have to be semantically similar. This method uses super pixels of the reference (Input) image, extracts features such as mean intensity, standard deviation, Gabor features and Speed Up Robust features.</p>
+     
+    <h2>Motive</h2>
+    <p>We were motivated to figure out a way to colour an image due to WW2 images. When thinking of WW2, we always think of
+     it in terms of gray-scale photos and video's. We wanted to bring some colour perspective to WW2 photos </p>
+    
+	<h2>Current State of the art Colouring Techniques</h2>
+	<h3> Automatic Techniques </h3>
+	<p> These Techniques use pre-trained colouring program to map colour to an image. The State of the art techniques use Deep Learning and Deep Convolutional Neural Networks</p>
+	<p> While this technique has gotten very accurate over the years, It requires a lot of computing power. Depending on the number of layers the network has, the program can be slowed down signigficantly.
+	    There is roughly an inverse correlation between the number of layers and accuracy. On the other hand, less layers mean a faster speed. </p>
+	<h4>Weakness:</h4>
+	<p> Requires huge data sets to train properly. Backpropagation in CNN's is tricky and can slow a system down.</p>
+	
+	<h3> Manual Techniques </h3>
+	<p> Requires User to manually map color to an Image. State of the art is Photoshop.</p>
+	<h4>Weakness:</h4>
+	<p> Tedious and Tiresome. Output is heavily dependent on the person colouring </p>
+	
+	<h2> Problem We are Trying to solve </h2>
+	<p> Automatic Image Colourization is underconstrained. There are infinite colours that can map to a certain pixel. When using Manual Colouring, this problem is less prevelant, but manually coloring 20 images is hard labor.</p>
+	<p> We are trying to solve the computational problem of Deep Learning algorithms. These algorithms require a lot of computation power, which might bottle neck a user's machine. </p>
+    
+	<h2> Approach </h2>
+	<p> We used a computationally easy approach to colour an image. This approach uses a reference image similar to the
+        target image and maps colour based on similar features </p>
+	<h2> Based On: </h2>
+	<p>Paper: Image Colorization Using Similar Images </p>
+	<p>Citation: R. K. Gupta, A. Y. Chia, D. Rajan, E. S. Ng, and H. Zhiyong. Image Colorization Using Similar Images. https://people.cs.clemson.edu/~jzwang/ustc13/mm2012/p369-gupta.pdf  </p>
+	
+	<h2> Method </h2>
+	<p> Let R be the RGB reference image and T be the gray-scale target. </p>
+	<p>     - Extract n super pixels per image </p>
+	<p>     - For each super pixel, extract Gabor features and SURF.</p>
+	<p>     - Cascase Feature match to get the right reference pixel per target super pixel </p>
+	<p>     - Use Image Space Voting to filter out umatched areas.</p>
+	
+	<h2> Results </h2>
+	<h3> Original Images to Colour </h3>
+	<figure>
+        <img src="./orig_fort.jpg" alt="super pixel image">
+        <figcaption>Original Fort Reference Image</figcaption>
+    </figure>
+	
+	<figure>
+        <img src="./orig_flower.png" alt="super pixel image">
+        <figcaption>Original Fort Reference Image</figcaption>
+    </figure>
+	
+	<p> We were able to successfully map colour using Cascade step for Gabor Features. The result wasn't accurate when using different images to colour
+         It seems that SURF features and Intensity freatures are required to get better estimates of reference pixels per target pixels. This is because using one feature is still underconstraining the problem.</p>
+    <p> We are trying to crunch time and get a map ready with SURF</p>
+	
+	<h3> Super Pixel Extraction </h3>
+	<p> Areas of an image simialr in characteristics. They help with speeding up computation. We found that the more the super pixels, the more accurate colour mapping was. </p>
+	<figure>
+        <img src="./sp1.jpg" alt="super pixel image">
+        <figcaption>Super Pixels of an flower</figcaption>
+    </figure>
+	
+	<figure>
+        <img src="./sp2.png" alt="super pixel image">
+        <figcaption>Super Pixels of an fort</figcaption>
+    </figure>
+	
+	<h3> Gabor Features </h3>
+	<p> Help in texture analysis of an image. </p>
+	<figure>
+        <img src="./gabor_fort.jpg" alt="gabor features for fort">
+        <figcaption>Some of the Gabor features for Fort</figcaption>
+    </figure>
+	
+	<figure>
+        <img src="./gabor_flower.jpg" alt="gabor features for flower">
+        <figcaption>Some of the Gabor features for Flower</figcaption>
+    </figure>
+	
+	<h3> SURF </h3>
+	<p> Speed Up Robust Features behave just like SIFT features, but they are faster. They are also highly discriminative </p>
+	
+	<h3> Cascade Feature Mapping </h3>
+	<p>     - Let C be the set of all reference super pixels. </p>
+	<p>     - For every super pixel t in T (the gray scale image): </p>
+	<p>          - Compute the Euclidean Distance of mean Gabor Features between t and c in C, for all elements of C. </p>
+	<p>          - If this distace is less than a certain error, add it to a list of reference super pixels close to the target super pixel in texture.</p>
+	<p>      - In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
+             Finally use function f to narrow down on a single super pixel: </p>
+    <p> function f: </p>
+	
+	<h2> Final Coloration </h2>
+	<figure>
+        <img src="./result_flower.jpg" alt="result for flower">
+        <figcaption>Final Coloration of flower using Gabor Features</figcaption>
+    </figure>
+	<h2> Discussion </h2>
+	<p> While we were unable to implemet the research paper accuratly ,we found that Colour mapping is possible with this method, just not very accurate. If we can add more layers of features to narrow down
+        on a reference super pixel, we would be able to develop a better program. Again, Image Colourization is underconstrained. Gabor and SURF features might still do not properly constraint this problem. </p>
+	<p> Colour is heavily dependent on the reference Image. If the flower in the Image was green, the colour of our flower would be green. In application, we would need a human to figure out a proper reference image </p>
+	<p> This is a method we took from the referenced research paper and modified it to our knowledge. It is not a fully defined method yet, so the output is dependent on our skill level too. </p>
+	
+	
+	<h3> Pros </h3>
+	<p>     -  A lot less data intensive than Neural Networks (i.e. doesn’t need the use of implemented libraries with pre-trained data sets). </p>
+	<p>     -  Conceptually a lot easier to understand.</p>
+	
+	<h3> Cons </h3>
+	<p>     -  Harder to implement than a Neural Network</p>
+	<p>     -  Getting a higher accuracy result needs more features to narrow down a map. This in a way defeats the resaon we chose to implement this method. More Features implies more data elements per super pixels </p>
+	<p>     -  Colour is heavily dependent on the reference image. </p>
+	
+	<h3> Challenges </h3>
+	<p> This was harder than we thought. This method is conceptually suepr easy to undersand, but gets very complicated in its technicality. </p>
+	<p> We overcame a challenge we were facing with mapping Gabor features per super-pixel. We Initially were getting no results out of the Cascade step. We totally changed our method to get a super pixel map. </p>
+	<p> We are using a colouring scheme we do not fully understand. Trasnfering colour is tricky, we initially were transferring the RGB channels, but this just copied a super pixel at another location. </p>
+	
+	<h2> Future Work </h2>
+	<p> Add More features.</p>
+	<p> Colour transfer by filtering out higher frequencies of an Image. If we can successfully Implement this, we don't need Micro-Scribbles to transfer colour </p>
+
+	
+    
+  </body>
+</html>

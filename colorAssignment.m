@@ -1,4 +1,5 @@
 function color_assignment = colorAssignment(referenceI, targetI, indexes, targetL, targetN, refL, refN)
+%This function transfers colour from reference to Target
     color_assignment = cat(3, targetI, targetI, targetI);
     
     refR = referenceI(:,:,1);

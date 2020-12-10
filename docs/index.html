@@ -48,15 +48,15 @@
 	<p> We are trying to solve the computational problem of Deep Learning algorithms. These algorithms require a lot of computation power, which might bottle neck a user's machine. </p>
     
 	  <p>We are trying to figure out a right constraint for defining a map between target and reference area of the image. Without proper constraints, Transferring colour
-		  woulf be random. Texture is one such feature that might add a constraint to this problem. If two regions of an image share similar texture, then they could likely
-		  be similar. For example, If we look at two different forts build in the same time period in the same region, they will have similarities. Their window textures will be similar, they
+		  would be random. Texture is one such feature that might add a constraint to this problem. If two regions of an image share similar texture, then they could likely
+		  be similar in colour. For example, If we look at two different forts build in the same time period in the same region, they will have similarities. Their window textures will be similar, they
 		  would probably have the same style of architecture, and similar styles of garden. If one looks at two passport photos of different human beings, they will probably have similarities such as
 		  eyes, nose, and probably hair (if both have hair). From a human's standpoint, It is obvious that we can map hair colour from one person to the other.
 		  Besides these, We also need to make sure that we find this region regardless of their orientation and direction.</p>
 	  
 	<h2> Approach </h2>
 	<p> We used a computationally easy approach to colour an image. This approach uses a reference image similar to the
-        target image and maps colour based on similar features </p>
+        target image and maps colour based on similar texture.</p>
 	<h2> Based On: </h2>
 	<p>Paper: Image Colorization Using Similar Images </p>
 	<p>Citation: R. K. Gupta, A. Y. Chia, D. Rajan, E. S. Ng, and H. Zhiyong. Image Colorization Using Similar Images. https://people.cs.clemson.edu/~jzwang/ustc13/mm2012/p369-gupta.pdf  </p>
@@ -80,9 +80,7 @@
         <figcaption>Original Fort Reference Image</figcaption>
     </figure>
 	
-	<p> We were able to successfully map colour using Cascade step for Gabor Features. The result wasn't accurate when using different images to colour
-         It seems that SURF features and Intensity freatures are required to get better estimates of reference pixels per target pixels. This is because using one feature is still underconstraining the problem.</p>
-    <p> We are trying to crunch time and get a map ready with SURF</p>
+
 	
 	<h3> Super Pixel Extraction </h3>
 	<p> Areas of an image simialr in characteristics. They help with speeding up computation. We found that the more the super pixels, the more accurate colour mapping was. </p>
@@ -97,7 +95,7 @@
     </figure>
 	
 	<h3> Gabor Features </h3>
-	<p> Help in texture analysis of an image. </p>
+	<p> Help in texture analysis of an image. We aim at finding similar super pixels with gabor features. If two super pixels have similar mean features, they are likely similar. </p>
 	<figure>
         <img src="./gabor_fort.jpg" alt="gabor features for fort">
         <figcaption>Some of the Gabor features for Fort</figcaption>
@@ -109,14 +107,14 @@
     </figure>
 	
 	<h3> SURF </h3>
-	<p> Speed Up Robust Features behave just like SIFT features, but they are faster. They are also highly discriminative </p>
+	<p> Speed Up Robust Features behave just like SIFT features, but they are faster. They are highly discriminative </p>
 	
 	<h3> Cascade Feature Mapping </h3>
-	<p>     - Let C be the set of all reference super pixels. </p>
-	<p>     - For every super pixel t in T (the gray scale image): </p>
+	<p>      Let C be the set of all reference super pixels. </p>
+	<p>      For every super pixel t in T (the gray scale image): </p>
 	<p>          - Compute the Euclidean Distance of mean Gabor Features between t and c in C, for all elements of C. </p>
 	<p>          - If this distace is less than a certain error, add it to a list of reference super pixels close to the target super pixel in texture.</p>
-	<p>      - In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
+	<p>      In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
              Finally use function f to narrow down on a single super pixel: </p>
     <p> function f: w*d(g_r,g_t): w is a predefined weight and d(g_r,g_t) is the eucledian distance between target Gabor Features and reference Gabor Features.</p>
 	  <p> this function can be further extended to encorporate surf by adding another weight and distance function. So can any other feature be encorporated this way.</p>
@@ -128,6 +126,9 @@
         <figcaption>Final Coloration of flower using Gabor Features</figcaption>
     </figure>
 	<h2> Discussion </h2>
+	  	<p> We were able to successfully transfer colour using Cascade step for Gabor Features. The result wasn't accurate when using different images to colour
+         It seems that SURF features and Intensity freatures are required to get better estimates of reference pixels per target pixels. This is because using Gabor texture analysis is still not a proper constraint.</p>
+        <p> We are trying to crunch time and apply SURF to narrow down, but are facing technical difficulties.</p>
 	<p> While we were unable to implemet the research paper accuratly ,we found that Colour mapping is possible with this method, just not very accurate. If we can add more layers of features to narrow down
         on a reference super pixel, we would be able to develop a better program. Again, Image Colourization is underconstrained. Gabor and SURF features might still do not properly constraint this problem. </p>
 	<p> Colour is heavily dependent on the reference Image. If the flower in the Image was green, the colour of our flower would be green. In application, we would need a human to figure out a proper reference image </p>
@@ -148,8 +149,8 @@
 	<p>     -  Harder to implement than a Neural Network</p>
 	<p>     -  Getting a higher accuracy result needs more features to narrow down a map. This in a way defeats the resaon we chose to implement this method. More Features implies more data elements per super pixels </p>
 	<p>     -  Colour is heavily dependent on the reference image. </p>
-	
-	  <p> Overall, This method is better than CNN and Deep Learning, if and only if one can implement this method right. This method is tricky and requires decent knowledge about how colour's work in an image</p>
+	<p>     -  As of now, Deep Nets provide with better methods to colour a gray-scale image. Even online image colouring sites would be effecient. </p>
+	  <p> Overall, This method could prove better than CNN and Deep Learning, if and only if one can implement this method right. This method is tricky and requires decent knowledge about how colour's work in an image</p>
 	  <p> As of now, state of the art wins </p>
 	<h3> Challenges </h3>
 	<p> This was harder than we thought. This method is conceptually suepr easy to undersand, but gets very complicated in its technicality. </p>
@@ -158,7 +159,7 @@
 	
 	<h2> Future Work </h2>
 	<p> Add More features.</p>
-	<p> Colour transfer by filtering out higher frequencies of an Image. If we can successfully Implement this, we don't need Micro-Scribbles to transfer colour </p>
+	<p> Colour transfer by filtering out higher frequencies of an Image. If we can successfully Implement this, we don't need Micro-Scribbles to transfer colour (suggested by Fellipe). </p>
 
 	
     

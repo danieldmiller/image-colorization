@@ -47,6 +47,13 @@
 	<p> Automatic Image Colourization is underconstrained. There are infinite colours that can map to a certain pixel. When using Manual Colouring, this problem is less prevelant, but manually coloring 20 images is hard labor.</p>
 	<p> We are trying to solve the computational problem of Deep Learning algorithms. These algorithms require a lot of computation power, which might bottle neck a user's machine. </p>
     
+	  <p>We are trying to figure out a right constraint for defining a map between target and reference area of the image. Without proper constraints, Transferring colour
+		  woulf be random. Texture is one such feature that might add a constraint to this problem. If two regions of an image share similar texture, then they could likely
+		  be similar. For example, If we look at two different forts build in the same time period in the same region, they will have similarities. Their window textures will be similar, they
+		  would probably have the same style of architecture, and similar styles of garden. If one looks at two passport photos of different human beings, they will probably have similarities such as
+		  eyes, nose, and probably hair (if both have hair). From a human's standpoint, It is obvious that we can map hair colour from one person to the other.
+		  Besides these, We also need to make sure that we find this region regardless of their orientation and direction.</p>
+	  
 	<h2> Approach </h2>
 	<p> We used a computationally easy approach to colour an image. This approach uses a reference image similar to the
         target image and maps colour based on similar features </p>

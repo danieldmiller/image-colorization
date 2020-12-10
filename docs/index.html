@@ -118,7 +118,8 @@
 	<p>          - If this distace is less than a certain error, add it to a list of reference super pixels close to the target super pixel in texture.</p>
 	<p>      In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
              Finally use function f to narrow down on a single super pixel: </p>
-    <p> function f: w*d(g_r,g_t): w is a predefined weight and d(g_r,g_t) is the eucledian distance between target Gabor Features and reference Gabor Features.</p>
+    <p> function f: w*d(g_r,g_t): w is a predefined weight and d(g_r,g_t) is the eucledian distance between target Gabor Features and reference Gabor Features. The super pixels
+	  corresponding to the minimum output of this function are matching pairs.</p>
 	  <p> This function can be further extended to encorporate surf by adding another weight and distance function. So can any other feature be encorporated this way.</p>
 	  <p> The weight constant for Gabor we chose was 0.2. We arrived at this by just experimenting and with the help of the research paper we based our project on </p>
 	  
@@ -135,15 +136,14 @@
 	<h2> Discussion </h2>
 	  	<p> We were able to successfully transfer colour using Cascade step for Gabor Features. The result wasn't accurate when using different images to colour
          It seems that SURF features and Intensity freatures are required to get better estimates of reference pixels per target pixels. This is because using Gabor texture analysis is still not a proper constraint.</p>
-        <p> We are trying to crunch time and apply SURF to narrow down, but are facing technical difficulties.</p>
-	<p> While we were unable to implemet the research paper accuratly ,we found that Colour mapping is possible with this method, just not very accurate. If we can add more layers of features to narrow down
-        on a reference super pixel, we would be able to develop a better program. Again, Image Colourization is underconstrained. Gabor and SURF features might still do not properly constraint this problem. </p>
-	<p> Colour is heavily dependent on the reference Image. If the flower in the Image was green, the colour of our flower would be green. In application, we would need a human to figure out a proper reference image </p>
-	<p> This is a method we took from the referenced research paper and modified it to our knowledge. It is not a fully defined method yet, so the output is dependent on our skill level too. </p>
-	<p> There are a lot of smudges that go out of where they should be, This is why we need and image space voting algorithm. If we had more time we would have been able to pull it.
-		A Median filter can also be used </p>
-	 <p> Right now, the only constraint on our colour transfer map is Gabor Feature, which uses similarity in textures. SURF features would help discriminate better and hence give better results </p>
-	  
+        
+	<p> While we were unable to implemet the research paper accuratly ,we found that Colour transfer is possible with this method, just not very accurate. If we can add more layers of features to narrow down
+        on a reference super pixel, we would be able to develop a better program. Again, Image Colourization is underconstrained. Gabor and SURF features still do not properly constraint this problem. </p>
+	<p> Colour is heavily dependent on the reference Image. If the reference flower in the Image was green, the colour of our target flower would be green. In application, we would need a human to figure out a proper reference image </p>
+		<p> There are a lot of smudges that go out of where they should be, This is why we need and image space voting algorithm or a median filter. </p>
+	 <p> Right now, the only constraint on our colour transfer map is Gabor Feature, which uses similarity in textures. Tranfering colour from an image to the gray-scale counterpart of the same image is a very accurate transfer.
+	  This is due to the fact that they have the same super pixels and henc ethe same gabor features. So for each target super pixel, there is a super pixel in the reference image such that the euclidean distance between these two features is 0.</p>
+	  <p> This is a method we took from the referenced research paper and modified it to our knowledge. It is not a fully defined method yet, so the output is dependent on our skill level too.  </p>
 	 
 	
 	<h3> Pros </h3>
@@ -162,6 +162,7 @@
 	<h3> Challenges </h3>
 	<p> This was harder than we thought. This method is conceptually suepr easy to undersand, but gets very complicated in its technicality. </p>
 	<p> We overcame a challenge we were facing with mapping Gabor features per super-pixel. We Initially were getting no results out of the Cascade step. We totally changed our method to get a super pixel map. </p>
+	  
 	<p> We are using a colouring scheme we do not fully understand. Trasnfering colour is tricky, we initially were transferring the RGB channels, but this just copied a super pixel at another location. </p>
 	<p> It is hard to work with super pixels. We finally figured out a way to extract them from an image, but at first glance it is hard to exctract non square/rectangle
 		shaped regions from an image </p>

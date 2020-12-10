@@ -1,6 +1,6 @@
 function pixel = cascade_gabor(g_s, g_d, x,y)
 %CASCADE_GABOR Summary of this function goes here
-%   Detailed explanation goes here
+%   Performs Cascade mathcing for gabor features
 
 %Compute distance between g_s and g_d
 n = 40;

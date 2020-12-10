@@ -111,7 +111,9 @@
 	<p>          - If this distace is less than a certain error, add it to a list of reference super pixels close to the target super pixel in texture.</p>
 	<p>      - In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
              Finally use function f to narrow down on a single super pixel: </p>
-    <p> function f: </p>
+    <p> function f: w*d(g_r,g_t): w is a predefined weight and d(g_r,g_t) is the eucledian distance between target Gabor Features and reference Gabor Features.</p>
+	  <p> this function can be further extended to encorporate surf by adding another weight and distance function. So can any other feature be encorporated this way.</p>
+	  
 	
 	<h2> Final Coloration </h2>
 	<figure>
@@ -123,11 +125,16 @@
         on a reference super pixel, we would be able to develop a better program. Again, Image Colourization is underconstrained. Gabor and SURF features might still do not properly constraint this problem. </p>
 	<p> Colour is heavily dependent on the reference Image. If the flower in the Image was green, the colour of our flower would be green. In application, we would need a human to figure out a proper reference image </p>
 	<p> This is a method we took from the referenced research paper and modified it to our knowledge. It is not a fully defined method yet, so the output is dependent on our skill level too. </p>
-	
+	<p> There are a lot of smudges that go out of where they should be, This is why we need and image space voting algorithm. If we had more time we would have been able to pull it.
+		A Median filter can also be used </p>
+	 <p> Right now, the only constraint on our colour transfer map is Gabor Feature, which uses similarity in textures. SURF features would help discriminate better and hence give better results </p>
+	  
+	 
 	
 	<h3> Pros </h3>
 	<p>     -  A lot less data intensive than Neural Networks (i.e. doesn’t need the use of implemented libraries with pre-trained data sets). </p>
 	<p>     -  Conceptually a lot easier to understand.</p>
+	 <p>     -  faster (will eventually slow down after adding more layers of features) </p>
 	
 	<h3> Cons </h3>
 	<p>     -  Harder to implement than a Neural Network</p>

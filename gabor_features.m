@@ -1,4 +1,5 @@
 function [gaborArray,gaborMag] = gabor_features(I)
+%Generates Gabor Features for Image I
     end_t = 7*pi/8;
     orientation = 0:pi/8:end_t;
     scale = [5,10,15,20,25];

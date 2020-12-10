@@ -118,10 +118,10 @@
 	<p>          - If this distace is less than a certain error, add it to a list of reference super pixels close to the target super pixel in texture.</p>
 	<p>      In the second level, we intent to use SURF to half the number of super pixels close to the target super pixel t.
              Finally use function f to narrow down on a single super pixel: </p>
-    <p> function f: w*d(g_r,g_t): w is a predefined weight and d(g_r,g_t) is the eucledian distance between target Gabor Features and reference Gabor Features. The super pixels
+         <p> function f: w*d(g_r,g_t): w is a predefined weight and d(g_r,g_t) is the eucledian distance between target Gabor Features and reference Gabor Features. The super pixels
 	  corresponding to the minimum output of this function are matching pairs.</p>
 	  <p> This function can be further extended to encorporate surf by adding another weight and distance function. So can any other feature be encorporated this way.</p>
-	  <p> The weight constant for Gabor we chose was 0.2. We arrived at this by just experimenting and with the help of the research paper we based our project on </p>
+	  <p> The weight constant for Gabor we chose was arbitrary as of now because we are only using one feature. In general, we are taking the min. But we have set the weight to be 0.2 for when we incorporate SURF. </p>
 	  
 	  <p> In order to tranfer colour from the reference super pixel to the target, chromatic colour values are tranfered between the centers of these super pixels, and then spread across with an optimization based colour algorithm </p>
 	<h2> Final Coloration </h2>

@@ -1,5 +1,6 @@
 html {
     background-color: #e3e3e3;
+    font-size: 14px;
 }
 
 body {
@@ -10,6 +11,40 @@ body {
     background-color: #ffffff;
 }
 
+h1 {
+    text-align: center;
+}
+
 h2 {
     margin-top: 40px;
+    text-decoration: underline;
+    font-size: 26px;
+    text-align: center;
+}
+
+h3 {
+    margin-top: 40px;
+    font-size: 18px;
+}
+
+.sideBySide {
+    display: flex;
+}
+
+.section::before {
+    position: absolute;
+    content: '';
+    background: #e3e3e3;
+    width: calc(100% + 52px);
+    margin-left: -26px;
+    height: 20px;
+    display: inline-block;
+    top: -50px;
+    left: 0;
+}
+
+.section {
+    position: relative;
+    /* width: 80%; */
+    margin-top: 100px;
 }

@@ -20,14 +20,18 @@ function color_assignment = colorAssignment(referenceI, targetI, indexes, target
         centerOfSuperPixel = median(valueIdx);
 
         midpoint = round(length(valueIdx)/2);
-        centerValues = valueIdx(midpoint-15:midpoint+16);
+        centerValues = valueIdx(midpoint-14:midpoint+15);
 
         
         if labelVal > size(indexes, 1)
-            continue
+            continue;
         end
         % Get r,g,b means from ref superpixel.
         correspondingRefSuperpixelNum = indexes(labelVal);
+        
+        if correspondingRefSuperpixelNum > size(refIdx, 2)
+            continue;
+        end
         refValueIdx = refIdx{correspondingRefSuperpixelNum};
         redMean = mean(refR(refValueIdx));
         greenMean = mean(refG(refValueIdx));

@@ -161,11 +161,12 @@
 	  <p> As of now, state of the art wins </p>
 	<h3> Challenges </h3>
 	<p> This was harder than we thought. This method is conceptually suepr easy to undersand, but gets very complicated in its technicality. </p>
-	<p> We overcame a challenge we were facing with mapping Gabor features per super-pixel. We Initially were getting no results out of the Cascade step. We totally changed our method to get a super pixel map. </p>
+	<p> We overcame a challenge we were facing with mapping Gabor features per super-pixel. We Initially were getting no results out of the Cascade step.We were calculating gabor pixels per image and not per super pixel, this was a bug in the code and changed our method appropriatly to get a super pixel map. </p>
 	  
-	<p> We are using a colouring scheme we do not fully understand. Trasnfering colour is tricky, we initially were transferring the RGB channels, but this just copied a super pixel at another location. </p>
+	<p> We are using a colouring scheme we do not fully understand. Trasnfering colour is tricky, we initially were transferring the RGB channels, but this just copied a super pixel at another location. Fellipe told us that colour is related to low frequencies of an image. So filtering out higher frequencies could give us colour. We intend to research this method more in the future.</p>
 	<p> It is hard to work with super pixels. We finally figured out a way to extract them from an image, but at first glance it is hard to exctract non square/rectangle
-		shaped regions from an image </p>
+		shaped regions from an image. Our first method was to divide the image into grids, this was easy to implement but when using a shifted reference image or any other reference image besides the coloured version of target, there were no results. This 
+	  was in part because of there may be grids on an image such that no target grid matches any reference grid.</p>
 	<h2> Future Work </h2>
 	 
 	<p>FInish up SURF and add other features.</p>
